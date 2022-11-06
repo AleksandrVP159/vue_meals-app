@@ -5,6 +5,7 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-5 px-8">
         <Meals v-for="meals in homeMeals" :meals="meals" />
     </div>
+    <div v-intersection="store.searchMealsHome" class="observer"></div>
 
 </template>
   
@@ -18,7 +19,7 @@ const store = useMealsStore()
 const homeMeals = computed(() => store.homeMeals)
 
 onMounted(() => {
-    store.searchMealsHome()
+    store.searchMealsHome
 });
 </script>
   

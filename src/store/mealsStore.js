@@ -28,11 +28,16 @@ export const useMealsStore = defineStore("meals", {
       });
     },
     async searchMealsHome() {
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 9; i++) {
         await axiosClient.get("random.php").then(({ data }) => {
           this.homeMeals.push(data.meals);
         });
       }
+    },
+    async loadMoreMealsHome() {
+      await axiosClient.get("random.php").then(({ data }) => {
+        this.homeMeals = [...this.homeMeals, ...data.meals];
+      });
     },
     async searchMealsDetail(route) {
       await axiosClient
