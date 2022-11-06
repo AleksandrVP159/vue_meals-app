@@ -27,6 +27,7 @@ const route = useRoute()
 const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
 watch(route, () => {
+    store.$reset()
     store.searchMealsByLetter(route.params.letter)
 })
 
