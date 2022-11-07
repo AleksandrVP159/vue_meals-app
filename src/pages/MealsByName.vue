@@ -5,7 +5,7 @@
     <div class="px-8 pb-3">
         <input type="text" v-model="keyword"
             class="rounded border-2 bg-white border-gray-200 focus:ring-orange-500 focus:border-orange-500 w-full"
-            placeholder="Search for Meals" @change="onSearchMeals" />
+            placeholder="Search for Meals" @input="onSearchMeals" />
     </div>
 
     <Meals v-for="meals in searchedMeals" :meals="meals" />
@@ -13,7 +13,7 @@
 
 <script setup>
 import Meals from "@/components/Meals.vue";
-import { onMounted, ref, computed } from "vue";
+import { onMounted, ref, computed, watch } from "vue";
 import { useRoute } from "vue-router";
 
 import { useMealsStore } from "../store/mealsStore.js";
@@ -30,6 +30,13 @@ function onSearchMeals() {
         store.searchMeals(keyword.value)
     }
 }
+
+/* watch(keyword.value, () => {
+    keyword.value = route.params.name
+    if (keyword.value) {
+        onSearchMeals()
+    }
+}) */
 
 onMounted(() => {
     keyword.value = route.params.name
