@@ -6,6 +6,9 @@
         <Meals v-for="meals in homeMeals" :meals="meals" />
     </div>
     <div v-intersection="store.searchMealsHome" class="observer"></div>
+    <template v-if="detectForScroll">
+        <ButtonScrollTop @scroll-top="scrollToTop" />
+    </template>
 
 </template>
   
@@ -17,6 +20,16 @@ import { useMealsStore } from "../store/mealsStore.js";
 
 const store = useMealsStore()
 const homeMeals = computed(() => store.homeMeals)
+
+function scrollToTop() {
+    window.scrollTo(0, 0)
+    store.$reset()
+}
+
+const detectForScroll = computed(() => {
+    return Boolean(homeMeals.value.length > 9)
+})
+
 
 onMounted(() => {
     store.searchMealsHome
